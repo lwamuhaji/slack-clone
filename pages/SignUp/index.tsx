@@ -5,9 +5,12 @@ import { useState } from 'react';
 import { Form, Error, Label, Input, LinkContainer, Button, Header, Success } from './styles';
 import useInput from '@hooks/useInput';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import useSWR from 'swr';
+import fetcher from '@utils/fetcher';
 
 const SignUp = () => {
+  const { data } = useSWR('/api/users', fetcher);
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, setPassword] = useState('');
@@ -36,7 +39,6 @@ const SignUp = () => {
     (e) => {
       e.preventDefault();
       if (!mismatchError) {
-        console.log('서버로 회원가입하기');
         setSignUpError('');
         setSignUpSuccess(false);
         axios
@@ -59,6 +61,14 @@ const SignUp = () => {
     },
     [email, nickname, password, passwordCheck],
   );
+
+  if (data === undefined) {
+    return <div>로딩중...</div>;
+  }
+
+  if (data) {
+    return <Navigate to="/workspace/sleact/channel/일반" />;
+  }
 
   return (
     <div id="container">

@@ -30,10 +30,8 @@ const LogIn = () => {
   );
 
   if (data) {
-    console.log('이미 로그인이 되어 있음: Login');
-    return <Navigate to="/workspace/channel" />;
+    return <Navigate to="/workspace/sleact/channel/일반" />;
   }
-  console.log('로그인이 되어있지 않음: Login');
 
   return (
     <div id="container">
