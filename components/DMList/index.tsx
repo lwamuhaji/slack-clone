@@ -45,8 +45,23 @@ const DMList: VFC<Props> = ({ userData }) => {
             const isOnline = onlineList.includes(member.id);
             const count = countList[member.id] || 0;
             return (
-              <NavLink key={member.id} to={`/workspace/${workspace}/dm/${member.id}`}>
+              <NavLink
+                key={member.id}
+                to={`/workspace/${workspace}/dm/${member.id}`}
+                className={({ isActive }) => (isActive ? 'selected' : undefined)}
+              >
+                <i
+                  className={`c-icon p-channel_sidebar__presence_icon p-channel_sidebar__presence_icon--dim_enabled c-presence ${
+                    isOnline ? 'c-presence--active c-icon--presence-online' : 'c-icon--presence-offline'
+                  }`}
+                  aria-hidden="true"
+                  data-qa="presence_indicator"
+                  data-qa-presence-self="false"
+                  data-qa-presence-active="false"
+                  data-qa-presence-dnd="false"
+                />
                 <span>{member.nickname}</span>
+                {member.id === userData?.id && <span> (나)</span>}
               </NavLink>
             );
           })}
