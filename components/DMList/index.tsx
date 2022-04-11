@@ -6,12 +6,11 @@ import { NavLink } from 'react-router-dom';
 import useSWR from 'swr';
 import { CollapseButton } from './styles';
 
-interface Props {
-  userData?: IUser;
-}
-
-const DMList: VFC<Props> = ({ userData }) => {
+const DMList: VFC = () => {
   const { workspace } = useParams();
+  const { data: userData } = useSWR<IUser>('/api/users', fetcher, {
+    dedupingInterval: 2000,
+  });
   const { data: memberData } = useSWR<IUserWithOnline[]>(
     userData ? `/api/workspaces/${workspace}/members` : null,
     fetcher,
