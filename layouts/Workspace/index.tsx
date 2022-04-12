@@ -32,6 +32,7 @@ import CreateChannelModal from '@components/CreateChannelModal';
 import InviteWorkspaceModal from '@components/InviteWorkspaceModal';
 import InviteChannelModal from '@components/InviteChannelModal';
 import DMList from '@components/DMList';
+import ChannelList from '@components/ChannelList';
 
 const Channel = loadable(() => import('@pages/Channel'));
 const DirectMessage = loadable(() => import('@pages/DirectMessage'));
@@ -128,7 +129,9 @@ const Workspace: VFC = () => {
     setShowWorkspaceModal((prev) => !prev);
   }, []);
 
-  const onClickInviteWorkspace = useCallback(() => {}, []);
+  const onClickInviteWorkspace = useCallback(() => {
+    setShowInviteWorkspaceModal(true);
+  }, []);
 
   if (!userData) {
     return <Navigate to="/login" />;
@@ -177,8 +180,8 @@ const Workspace: VFC = () => {
                 <button onClick={onLogout}>로그아웃</button>
               </WorkspaceModal>
             </Menu>
-            {/* <ChannelList/> */}
-            <DMList/>
+            <ChannelList />
+            <DMList />
           </MenuScroll>
         </Channels>
         <Chats>
